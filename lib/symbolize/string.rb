@@ -1,4 +1,4 @@
-require 'Symbolize'
+require 'symbolize'
 
 class String
   def symbolize
