@@ -1,0 +1,31 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: unit tests
+    pull: if-not-exists
+    image: ecr.tooling.dvla.gov.uk/base-images/qe-ruby:2.7.0
+
+    commands:
+      - bundle --jobs 5 --quiet
+      - bundle exec rspec
+    when:
+      event:
+        - push
+
+#  - name: build
+#    pull: if-not-exists
+#    image: ecr.tooling.dvla.gov.uk/base-images/ruby-ui-build:2.7.1
+#    commands:
+#      - bundle --jobs 5
+#      - gem build dvla-symbolize.gemspec
+#      - gem install nexus -v 1.4.0
+#      - gem nexus --url https://nexus.tooling.dvla.gov.uk/repository/gem-private/ dvla-symbolize*gem
+#    when:
+#      branch:
+#        - master
