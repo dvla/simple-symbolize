@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    symbolize (0.1.0)
+    super_symbolize (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -28,7 +28,7 @@ PLATFORMS
 DEPENDENCIES
   rake (~> 12.0)
   rspec (~> 3.0)
-  symbolize!
+  super_symbolize!
 
 BUNDLED WITH
    2.1.4
