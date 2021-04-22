@@ -20,6 +20,7 @@ It works by transforming special characters in a String like `'!'` into undersco
 'hello world!'.symbolize # => :hello_world
 ```
 
+testing drone
 ## Installation
 
 Add this line to your application's Gemfile:
