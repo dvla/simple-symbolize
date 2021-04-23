@@ -1,7 +1,7 @@
 require_relative 'lib/symbolize/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "super_symbolize"
+  spec.name          = "super-symbolize"
   spec.version       = Symbolize::VERSION
   spec.authors       = ["alexo"]
   spec.email         = ["alexander.omahoney@dvla.gov.uk"]
