@@ -30,5 +30,3 @@ steps:
     when:
       branch:
         - master
-    depends_on:
-      - unit tests
