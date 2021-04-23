@@ -1,9 +1,9 @@
-require 'symbolize/version'
+require 'simple_symbolize/version'
 
-require_relative 'symbolize/string.rb'
-require_relative 'symbolize/translations.rb'
+require_relative 'simple_symbolize/string.rb'
+require_relative 'simple_symbolize/translations.rb'
 
-module Symbolize
+module SimpleSymbolize
   class Error < StandardError; end
 
   # Returns the translations object, initializing it if necessary.

@@ -17,7 +17,7 @@ steps:
       event:
         - push
 
-  - name: build
+  - name: build and deploy
     pull: if-not-exists
     image: ecr.tooling.dvla.gov.uk/base-images/qe-ruby:2.7.0-1
     commands:
@@ -25,8 +25,8 @@ steps:
       - gem install bundler
       - gem install nexus
       - bundle --jobs 5 --quiet
-      - gem build super-symbolize.gemspec
-      - gem nexus --url https://nexus.tooling.dvla.gov.uk/repository/gem-private/ super-symbolize*gem
+      - gem build simple_symbolize.gemspec
+      - gem nexus --url https://nexus.tooling.dvla.gov.uk/repository/gem-private/ simple_symbolize*gem
     when:
       branch:
         - master
