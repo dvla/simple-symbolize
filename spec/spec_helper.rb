@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "symbolize"
+require "simple_symbolize"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

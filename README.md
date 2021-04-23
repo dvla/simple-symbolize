@@ -1,12 +1,12 @@
-# Symbolize
+# SimpleSymbolize
 
-Symbolize takes a string and transforms it into a symbol. Why? Because working with symbols in Ruby makes for a 
+SimpleSymbolize takes a string and transforms it into a symbol. Why? Because working with symbols in Ruby makes for a 
 good time.
 
 Wait, doesn't String already have a `to_sym` method?
 
 Correct! However, this gem takes it one step further by transforming special characters and whitespace to give you a 
-super easy to work with symbol.
+simple easy to work with Symbol.
 
 It works by transforming special characters in a String like `'!'` into underscores and removing whitespace.
 
@@ -25,7 +25,7 @@ It works by transforming special characters in a String like `'!'` into undersco
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'dvla-symbolize'
+gem 'simple_symbolize'
 ```
 
 And then execute:
@@ -34,22 +34,24 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install dvla-symbolize
+    $ gem install simple_symbolize
 
 ## Usage
 
 There are two ways to symbolize your String.
 
 ### Call the symbolize method and pass it your String
-```ruby
-require 'symbolize'
 
-symbolize('hello world!') # => :hello_world
+```ruby
+require 'simple_symbolize'
+
+SimpleSymbolize.symbolize('hello world!') # => :hello_world
 ```
 
 ### Call the symbolize method on your String object
+
 ```ruby
-require 'symbolize'
+require 'simple_symbolize'
 
 'hello world!'.symbolize # => :hello_world
 ```
@@ -61,17 +63,17 @@ Something not underscored or removed? Or even something underscored/removed that
 No sweat, you can configure this gem to underscore and remove to your hearts content!
 
 ```ruby
-Symbolize.translate do |trans|
+SimpleSymbolize.translate do |trans|
   trans.to_underscore('!')
   trans.to_remove(' ')
 end
 ```
 
-## Contributing
+[comment]: <> (## Contributing)
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dvla-symbolize.
+[comment]: <> (Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dvla-symbolize.)
 
 
-## License
+[comment]: <> (## License)
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+[comment]: <> (The gem is available as open source under the terms of the [MIT License]&#40;https://opensource.org/licenses/MIT&#41;.)

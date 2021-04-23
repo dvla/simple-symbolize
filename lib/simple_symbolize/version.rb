@@ -1,3 +1,3 @@
-module Symbolize
+module SimpleSymbolize
   VERSION = '0.2.0'
 end

@@ -1,13 +1,13 @@
-require_relative 'lib/symbolize/version'
+require_relative 'lib/simple_symbolize/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "super-symbolize"
-  spec.version       = Symbolize::VERSION
+  spec.name          = "simple_symbolize"
+  spec.version       = SimpleSymbolize::VERSION
   spec.authors       = ["alexo"]
   spec.email         = ["alexander.omahoney@dvla.gov.uk"]
 
   spec.summary       = %q{Turns Strings into Symbols.}
-  spec.description   = %q{Super symbolize will handle Strings with special characters which #to_sym neglects.}
+  spec.description   = %q{Simple symbolize will handle Strings with special characters which #to_sym neglects.}
   spec.homepage      = "https://bitbucket.tooling.dvla.gov.uk/projects/QE/repos/dvla-symbolize-ruby/browse"
   # spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")

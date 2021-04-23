@@ -1,4 +1,4 @@
-module Symbolize
+module SimpleSymbolize
   # The translations class holds the attributes used to transform a String object.
   # It also provides helper methods to manipulate those attributes.
   class Translations
