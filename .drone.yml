@@ -21,9 +21,11 @@ steps:
     pull: if-not-exists
     image: ecr.tooling.dvla.gov.uk/base-images/qe-ruby:2.7.0-1
     commands:
-      - bundle --jobs 5
+      - apk add --update git unzip alpine-sdk jq --no-cache
+      - gem install bundler
+      - gem install nexus
+      - bundle --jobs 5 --quiet
       - gem build super-symbolize.gemspec
-      - gem install nexus -v 1.4.0
       - gem nexus --url https://nexus.tooling.dvla.gov.uk/repository/gem-private/ super-symbolize*gem
     when:
       branch:
