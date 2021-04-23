@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dvla-symbolize (0.1.0)
+    super_symbolize (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -26,9 +26,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  dvla-symbolize!
   rake (~> 12.0)
   rspec (~> 3.0)
+  super_symbolize!
 
 BUNDLED WITH
    2.1.4

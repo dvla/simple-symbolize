@@ -6,7 +6,7 @@ good time.
 Wait, doesn't String already have a `to_sym` method?
 
 Correct! However, this gem takes it one step further by transforming special characters and whitespace to give you a 
-super easy to work with symbol
+super easy to work with symbol.
 
 It works by transforming special characters in a String like `'!'` into underscores and removing whitespace.
 
