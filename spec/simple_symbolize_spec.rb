@@ -66,4 +66,8 @@ RSpec.describe SimpleSymbolize do
     expect { SimpleSymbolize.translate { |trans| trans.to_remove(['!@£$%^&']) } }.not_to raise_error
     expect { SimpleSymbolize.translate { |trans| trans.to_remove({ a: :b }) } }.not_to raise_error
   end
+
+  it "can call #symbolize without the namespace" do
+    expect(symbolize('Hello World!')).to eq(:hello_world)
+  end
 end

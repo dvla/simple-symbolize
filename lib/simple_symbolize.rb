@@ -3,6 +3,8 @@ require 'simple_symbolize/version'
 require_relative 'simple_symbolize/string.rb'
 require_relative 'simple_symbolize/translations.rb'
 
+include SimpleSymbolize
+
 module SimpleSymbolize
   class Error < StandardError; end
 
@@ -26,8 +28,8 @@ module SimpleSymbolize
   #
   # @example Symbolize a string using the symbolize method
   #   symbolize("hello world!") #=> :hello_world
-  def self.symbolize(str)
+  def symbolize(str)
     return str if str.is_a?(Symbol) || str.nil?
-    str.downcase.tr(translations.underscore.join, '_')&.tr(translations.remove.join, '')&.to_sym
+    str.downcase.tr(SimpleSymbolize.translations.underscore.join, '_')&.tr(SimpleSymbolize.translations.remove.join, '')&.to_sym
   end
 end
