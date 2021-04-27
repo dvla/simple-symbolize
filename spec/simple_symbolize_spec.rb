@@ -13,7 +13,7 @@ RSpec.describe SimpleSymbolize do
 
   it "has default translations" do
     expect(SimpleSymbolize.translations.underscore).to eq([' '])
-    expect(SimpleSymbolize.translations.remove).to eq(%w[\' ( ) ,])
+    expect(SimpleSymbolize.translations.remove).to eq(%w[\' ( ) , . : "])
   end
 
   it "can translate a block" do

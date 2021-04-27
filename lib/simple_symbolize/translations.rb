@@ -14,7 +14,7 @@ module SimpleSymbolize
     # Sets the class variables to a default state.
     def initialize
       @underscore = [' ']
-      @remove = %w[\' ( ) ,]
+      @remove = %w[\' ( ) , . : "]
     end
 
     # Merges the String passed with the @underscore Array omitting duplicates.
