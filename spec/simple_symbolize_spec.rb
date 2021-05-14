@@ -72,10 +72,39 @@ RSpec.describe SimpleSymbolize do
   end
 
   it "can omit characters from transformation" do
+    SimpleSymbolize.translate { |trans| trans.to_remove('!') }
     expect('Hello World!'.symbolize).to eq(:hello_world)
-    SimpleSymbolize.translate do |trans|
-      trans.to_omit('!')
-    end
+
+    SimpleSymbolize.translate { | trans | trans.to_omit('!') }
     expect('Hello World!'.symbolize).to eq(:hello_world!)
+  end
+
+  it "will return given characters to a translation block" do
+    expect(
+      SimpleSymbolize.translate do |trans|
+        trans.to_omit('^')
+      end
+    ).to include('^')
+
+    expect(SimpleSymbolize.translations.underscore).not_to include('^')
+    expect(SimpleSymbolize.translations.remove).not_to include('^')
+
+    expect(
+      SimpleSymbolize.translate do |trans|
+        trans.to_underscore('^')
+      end
+    ).to include('^')
+
+    expect(SimpleSymbolize.translations.omit).not_to include('^')
+    expect(SimpleSymbolize.translations.remove).not_to include('^')
+
+    expect(
+      SimpleSymbolize.translate do |trans|
+        trans.to_remove('^')
+      end
+    ).to include('^')
+
+    expect(SimpleSymbolize.translations.omit).not_to include('^')
+    expect(SimpleSymbolize.translations.underscore).not_to include('^')
   end
 end
