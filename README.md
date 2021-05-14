@@ -66,6 +66,7 @@ No sweat, you can configure this gem to underscore and remove to your hearts con
 SimpleSymbolize.translate do |trans|
   trans.to_underscore('!')
   trans.to_remove(' ')
+  trans.to_omit('@')
 end
 ```
 
