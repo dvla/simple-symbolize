@@ -21,7 +21,7 @@ module SimpleSymbolize
     end
 
     # Merges the String passed with the @underscore Array omitting duplicates.
-    # Removes those characters from the @remove Array to avoid the change being over-written.
+    # Removes those characters from the @remove ans @omit Arrays to avoid the change being over-written.
     #
     # @param t [String] a String object containing characters to be underscored.
     #
@@ -36,7 +36,7 @@ module SimpleSymbolize
     end
 
     # Merges the String passed with the @remove Array omitting duplicates.
-    # Removes those characters from the @underscore Array to avoid the change being over-written.
+    # Removes those characters from the @underscore and @omit Arrays to avoid the change being over-written.
     #
     # @param t [String] a String object containing characters to be removed.
     #
