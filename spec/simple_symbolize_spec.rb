@@ -70,4 +70,12 @@ RSpec.describe SimpleSymbolize do
   it "can call #symbolize without the namespace" do
     expect(symbolize('Hello World!')).to eq(:hello_world)
   end
+
+  it "can omit characters from transformation" do
+    expect('Hello World!'.symbolize).to eq(:hello_world)
+    SimpleSymbolize.translate do |trans|
+      trans.to_omit('!')
+    end
+    expect('Hello World!'.symbolize).to eq(:hello_world!)
+  end
 end

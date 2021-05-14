@@ -7,6 +7,8 @@ module SimpleSymbolize
     attr_accessor :underscore
     # @return [Array] the characters to be removed from the String.
     attr_accessor :remove
+    # @return [Array] the characters to be untouched from the String.
+    attr_accessor :omit
 
 
     # Creates an instance of the Translations class.
@@ -43,6 +45,19 @@ module SimpleSymbolize
       raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
       @underscore -= t.to_s.chars
       @remove |= t.to_s.chars
+    end
+
+    # Removes characters within the String passed from the @remove and @underscore Arrays.
+    #
+    # @param t [String] a String object containing characters to be removed.
+    #
+    # @return [Array] the Array of characters to be omitted.
+    #
+    # @raise [ArgumentError] if the param does not respond to  #to_s.
+    def to_omit(t)
+      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      @underscore -= t.to_s.chars
+      @remove -= t.to_s.chars
     end
   end
 end
