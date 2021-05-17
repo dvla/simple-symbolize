@@ -29,7 +29,7 @@ module SimpleSymbolize
     #
     # @raise [ArgumentError] if the param does not respond to  #to_s.
     def to_underscore(t)
-      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      raise ArgumentError 'needs to be a String or respond to #to_s' unless t.respond_to?(:to_s)
       @remove -= t.to_s.chars
       @omit -= t.to_s.chars
       @underscore |= t.to_s.chars
@@ -44,7 +44,7 @@ module SimpleSymbolize
     #
     # @raise [ArgumentError] if the param does not respond to  #to_s.
     def to_remove(t)
-      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      raise ArgumentError 'needs to be a String or respond to #to_s' unless t.respond_to?(:to_s)
       @underscore -= t.to_s.chars
       @omit -= t.to_s.chars
       @remove |= t.to_s.chars
@@ -58,7 +58,7 @@ module SimpleSymbolize
     #
     # @raise [ArgumentError] if the param does not respond to  #to_s.
     def to_omit(t)
-      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      raise ArgumentError 'needs to be a String or respond to #to_s' unless t.respond_to?(:to_s)
       @underscore -= t.to_s.chars
       @remove -= t.to_s.chars
       @omit += t.to_s.chars

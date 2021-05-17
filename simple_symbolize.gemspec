@@ -1,9 +1,9 @@
 require_relative 'lib/simple_symbolize/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "simple_symbolize"
+  spec.name          = 'simple_symbolize'
   spec.version       = SimpleSymbolize::VERSION
-  spec.authors       = ["alexo"]
+  spec.authors       = ['alexo']
   spec.email         = ['']
 
   spec.summary       = %q{Turns Strings into Symbols.}
@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
                        'Configure this gem to your hearts content!'
   # spec.homepage      = 'TODO: Link to homepage'
   # spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
@@ -25,9 +25,10 @@ Gem::Specification.new do |spec|
   spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
-  spec.bindir        = "exe"
+  spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_development_dependency "rspec", "~> 3.2"
+  spec.add_development_dependency 'rspec', '~> 3.2'
+  spec.add_development_dependency 'rubocop', '~> 1.15.0'
 end
