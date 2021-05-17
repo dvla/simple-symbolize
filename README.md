@@ -72,7 +72,7 @@ end
 
 [comment]: <> (## Contributing)
 
-[comment]: <> (Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dvla-symbolize.)
+[comment]: <> (Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simple_symbolize.)
 
 
 [comment]: <> (## License)

@@ -4,18 +4,20 @@ Gem::Specification.new do |spec|
   spec.name          = "simple_symbolize"
   spec.version       = SimpleSymbolize::VERSION
   spec.authors       = ["alexo"]
-  spec.email         = ["alexander.omahoney@dvla.gov.uk"]
+  spec.email         = ['']
 
   spec.summary       = %q{Turns Strings into Symbols.}
-  spec.description   = %q{Simple symbolize will handle Strings with special characters which #to_sym neglects.}
-  spec.homepage      = "https://bitbucket.tooling.dvla.gov.uk/projects/QE/repos/dvla-symbolize-ruby/browse"
+  spec.description   = 'simple_symbolize will remove special characters from a String, ' +
+                       'replacing whitespace with an underscore, down-casing and finally calling the #to_sym String method. ' +
+                       'Configure this gem to your hearts content!'
+  # spec.homepage      = 'TODO: Link to homepage'
   # spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = spec.homepage
+  # spec.metadata["homepage_uri"] = spec.homepage
+  # spec.metadata["source_code_uri"] = spec.homepage
   # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
   # Specify which files should be added to the gem when it is released.

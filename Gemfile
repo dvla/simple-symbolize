@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in dvla-symbolize.gemspec
+# Specify your gem's dependencies in simple_symbolize.gemspec
 gemspec
 
 gem "rake", "~> 12.0"
