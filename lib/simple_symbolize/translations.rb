@@ -2,14 +2,12 @@ module SimpleSymbolize
   # The translations class holds the attributes used to transform a String object.
   # It also provides helper methods to manipulate those attributes.
   class Translations
-
     # @return [Array] the characters to be transformed into underscores.
     attr_accessor :underscore
     # @return [Array] the characters to be removed from the String.
     attr_accessor :remove
     # @return [Array] the characters to be untouched from the String.
     attr_accessor :omit
-
 
     # Creates an instance of the Translations class.
     #
@@ -29,7 +27,8 @@ module SimpleSymbolize
     #
     # @raise [ArgumentError] if the param does not respond to  #to_s.
     def to_underscore(t)
-      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      raise ArgumentError 'needs to be a String or respond to #to_s' unless t.respond_to?(:to_s)
+
       @remove -= t.to_s.chars
       @omit -= t.to_s.chars
       @underscore |= t.to_s.chars
@@ -44,7 +43,8 @@ module SimpleSymbolize
     #
     # @raise [ArgumentError] if the param does not respond to  #to_s.
     def to_remove(t)
-      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      raise ArgumentError 'needs to be a String or respond to #to_s' unless t.respond_to?(:to_s)
+
       @underscore -= t.to_s.chars
       @omit -= t.to_s.chars
       @remove |= t.to_s.chars
@@ -58,7 +58,8 @@ module SimpleSymbolize
     #
     # @raise [ArgumentError] if the param does not respond to  #to_s.
     def to_omit(t)
-      raise ArgumentError "needs to be a String or respond to #to_s" unless t.respond_to?(:to_s)
+      raise ArgumentError 'needs to be a String or respond to #to_s' unless t.respond_to?(:to_s)
+
       @underscore -= t.to_s.chars
       @remove -= t.to_s.chars
       @omit += t.to_s.chars
