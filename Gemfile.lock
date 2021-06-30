@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_symbolize (0.5.1)
+    simple_symbolize (0.5.2)
 
 GEM
   remote: https://rubygems.org/
@@ -28,16 +28,16 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    rubocop (1.15.0)
+    rubocop (1.18.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.5.0, < 2.0)
+      rubocop-ast (>= 1.7.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.5.0)
+    rubocop-ast (1.7.0)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
     unicode-display_width (2.0.0)
@@ -48,7 +48,7 @@ PLATFORMS
 DEPENDENCIES
   rake (~> 12.0)
   rspec (~> 3.0)
-  rubocop (~> 1.15.0)
+  rubocop (~> 1.18.0)
   simple_symbolize!
 
 BUNDLED WITH

@@ -62,9 +62,9 @@ RSpec.describe SimpleSymbolize do
 
   it 'can handle non-strings in the translate block' do
     expect { SimpleSymbolize.translate { |trans| trans.to_underscore(['!@£$%^&']) } }.not_to raise_error
-    expect { SimpleSymbolize.translate { |trans| trans.to_underscore({ :a => :b }) } }.not_to raise_error
+    expect { SimpleSymbolize.translate { |trans| trans.to_underscore({ a: :b }) } }.not_to raise_error
     expect { SimpleSymbolize.translate { |trans| trans.to_remove(['!@£$%^&']) } }.not_to raise_error
-    expect { SimpleSymbolize.translate { |trans| trans.to_remove({ :a => :b }) } }.not_to raise_error
+    expect { SimpleSymbolize.translate { |trans| trans.to_remove({ a: :b }) } }.not_to raise_error
   end
 
   it 'can call #symbolize without the namespace' do
@@ -75,7 +75,7 @@ RSpec.describe SimpleSymbolize do
     SimpleSymbolize.translate { |trans| trans.to_remove('!') }
     expect('Hello World!'.symbolize).to eq(:hello_world)
 
-    SimpleSymbolize.translate { | trans | trans.to_omit('!') }
+    SimpleSymbolize.translate { |trans| trans.to_omit('!') }
     expect('Hello World!'.symbolize).to eq(:hello_world!)
   end
 
