@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_symbolize (1.0.0)
+    simple_symbolize (1.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -47,7 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   rake (~> 12.0)
-  rspec (~> 3.0)
+  rspec (~> 3.2)
   rubocop (~> 1.18.0)
   simple_symbolize!
 
