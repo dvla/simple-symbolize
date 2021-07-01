@@ -8,7 +8,7 @@ Wait, doesn't String already have a `to_sym` method?
 Correct! However, this gem takes it one step further by transforming special characters and whitespace to give you a 
 simple easy to work with Symbol.
 
-It works by transforming special characters in a String like `'!'` into underscores and removing whitespace.
+It works by removing special characters in a String like `'!'` and underscoring any whitespace.
 
 #### Example
 
