@@ -70,6 +70,34 @@ SimpleSymbolize.translate do |trans|
 end
 ```
 
+## Updates!
+
+V1.1: SimpleSymbolize has got new friends!
+
+Introducing `elementize` and `camelize`.
+
+### Elementize
+
+Sometimes you just want a simple String obj without all the fuss. Elementize takes your String obj, removes that fuss
+and returns you a simple-to-use String.
+
+#### Example
+
+```ruby
+elementize('hello world!') # => "hello_world"
+```
+
+### Camelize
+
+Great for working with APIs that require fields in a JSON format. Camelize clears away the clutter and returns you 
+a Symbolized object in camelCase.
+
+#### Example
+
+```ruby
+camelize('hello world!') # => :helloWorld
+```
+
 [comment]: <> (## Contributing)
 
 [comment]: <> (Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simple_symbolize.)

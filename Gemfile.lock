@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_symbolize (1.0.1)
+    simple_symbolize (1.1.0)
 
 GEM
   remote: https://rubygems.org/

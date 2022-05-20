@@ -34,4 +34,30 @@ module SimpleSymbolize
     str.downcase.tr(SimpleSymbolize.translations.underscore.join, '_')
       &.tr(SimpleSymbolize.translations.remove.join, '')&.to_sym
   end
+
+  # Symbolizes a String object and returns it as a String object.
+  #
+  # @param str [String] the String object to be symbolized.
+  #
+  # @example Symbolize a string using the camelize method
+  #   elementize("hello world!") #=> "helloWorld"
+  def elementize(str)
+    return str unless str.is_a?(Symbol) || str.is_a?(String)
+
+    symbolize(str).to_s
+  end
+
+  # Turns a String object into a camelCase Symbol.
+  #
+  # @param str [String] the String object to be camelized.
+  #
+  # @example Camelize a string using the camelize method
+  #   camelize("hello world!") #=> :helloWorld
+  def camelize(str)
+    return str unless str.is_a?(String) || str.is_a?(Symbol)
+    return str.to_sym if (str.is_a?(String)) && (str.split(/[_ ]/).size <= 1)
+
+    first, *rest = elementize(str).split('_')
+    rest ? (first << (rest.map(&:capitalize)).join).to_sym : first.to_sym
+  end
 end
