@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe SimpleSymbolize do
   it 'has an camelize method' do
     expect(SimpleSymbolize.camelize('This is a test')).to eq(:thisIsATest)
@@ -12,7 +14,7 @@ RSpec.describe SimpleSymbolize do
 
   it 'can handle non String parameters in the camelize method' do
     expect(SimpleSymbolize.camelize(nil)).to eq(nil)
-    expect(SimpleSymbolize.camelize({ })).to eq({ })
+    expect(SimpleSymbolize.camelize({})).to eq({})
     expect(SimpleSymbolize.camelize([])).to eq([])
     expect(SimpleSymbolize.camelize('')).to eq(:'')
   end

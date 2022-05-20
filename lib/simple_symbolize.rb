@@ -55,9 +55,9 @@ module SimpleSymbolize
   #   camelize("hello world!") #=> :helloWorld
   def camelize(str)
     return str unless str.is_a?(String) || str.is_a?(Symbol)
-    return str.to_sym if (str.is_a?(String)) && (str.split(/[_ ]/).size <= 1)
+    return str.to_sym if str.is_a?(String) && (str.split(/[_ ]/).size <= 1)
 
     first, *rest = elementize(str).split('_')
-    rest ? (first << (rest.map(&:capitalize)).join).to_sym : first.to_sym
+    rest ? (first << rest.map(&:capitalize).join).to_sym : first.to_sym
   end
 end
