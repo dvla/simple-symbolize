@@ -39,7 +39,7 @@ module SimpleSymbolize
   #
   # @param str [String] the String object to be symbolized.
   #
-  # @example Symbolize a string using the camelize method
+  # @example Elementize a string using the elementize method
   #   elementize("hello world!") #=> "helloWorld"
   def elementize(str)
     return str unless str.is_a?(Symbol) || str.is_a?(String)
@@ -55,9 +55,9 @@ module SimpleSymbolize
   #   camelize("hello world!") #=> :helloWorld
   def camelize(str)
     return str unless str.is_a?(String) || str.is_a?(Symbol)
-    return str.to_sym if str.is_a?(String) && (str.split(/[_ ]/).size <= 1)
+    return symbolize(str) if str.is_a?(String) && (str.split(/[_ ]/).size <= 1)
 
     first, *rest = elementize(str).split('_')
-    rest ? (first << rest.map(&:capitalize).join).to_sym : first.to_sym
+    rest ? (first << rest.map(&:capitalize).join).to_sym : symbolize(first)
   end
 end
