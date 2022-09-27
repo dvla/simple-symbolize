@@ -11,6 +11,12 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.symbolize('This is a test')).to eq(:this_is_a_test)
   end
 
+  it 'will handle TrueClass, FalseClass and Integers' do
+    expect(SimpleSymbolize.symbolize(true)).to eq(:true)
+    expect(SimpleSymbolize.symbolize(false)).to eq(:false)
+    expect(SimpleSymbolize.symbolize(1)).to eq(:'1')
+  end
+
   it 'has default translations' do
     expect(SimpleSymbolize.translations.underscore).to eq([' '])
     expect(SimpleSymbolize.translations.remove).to eq(%w[\' ( ) , . : "])
