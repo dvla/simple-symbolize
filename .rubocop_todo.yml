@@ -70,3 +70,13 @@ Style/FrozenStringLiteralComment:
 Style/MixinUsage:
   Exclude:
     - 'lib/simple_symbolize.rb'
+
+# Offense count: 2
+Lint/BooleanSymbol:
+  Exclude:
+    - 'spec/simple_symbolize_spec.rb'
+
+# Offense count: 2
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/simple_symbolize_spec.rb'

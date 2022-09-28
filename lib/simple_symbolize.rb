@@ -31,7 +31,7 @@ module SimpleSymbolize
   def symbolize(str)
     return str if str.is_a?(Symbol) || str.nil?
 
-    str.downcase.tr(SimpleSymbolize.translations.underscore.join, '_')
+    str.to_s.downcase.tr(SimpleSymbolize.translations.underscore.join, '_')
       &.tr(SimpleSymbolize.translations.remove.join, '')&.to_sym
   end
 
