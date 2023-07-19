@@ -1,5 +1,18 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   NewCops: enable
   SuggestExtensions: false
+  TargetRubyVersion: 3.0
+
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 120
+  Exclude:
+    - spec/**/*.rb
+
+Style/MixinUsage:
+  Enabled: false

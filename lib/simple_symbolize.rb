@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simple_symbolize/version'
 
 require_relative 'simple_symbolize/string'
@@ -5,6 +7,8 @@ require_relative 'simple_symbolize/translations'
 
 include SimpleSymbolize
 
+# Main module for the gem
+# Contains the base methods and allows configuration
 module SimpleSymbolize
   class Error < StandardError; end
 
@@ -18,7 +22,7 @@ module SimpleSymbolize
   # Configures the Symbolize environment.
   #
   # @yieldparam [Translations] config the translations object yielded to the block.
-  def self.translate(&block)
+  def self.translate(&_block)
     yield translations
   end
 
@@ -29,10 +33,15 @@ module SimpleSymbolize
   # @example Symbolize a string using the symbolize method
   #   symbolize("hello world!") #=> :hello_world
   def symbolize(str)
-    return str if str.is_a?(Symbol) || str.nil?
+    return str unless [String, Symbol].include?(str.class)
 
-    str.to_s.downcase.tr(SimpleSymbolize.translations.underscore.join, '_')
-      &.tr(SimpleSymbolize.translations.remove.join, '')&.to_sym
+    str = str.to_s
+    str = str.to_snake_case if SimpleSymbolize.translations.handle_camel_case
+
+    str.downcase
+       .tr(SimpleSymbolize.translations.underscore.join, '_')
+       .tr(SimpleSymbolize.translations.remove.join, '')
+       .to_sym
   end
 
   # Symbolizes a String object and returns it as a String object.
@@ -42,7 +51,7 @@ module SimpleSymbolize
   # @example Elementize a string using the elementize method
   #   elementize("hello world!") #=> "helloWorld"
   def elementize(str)
-    return str unless str.is_a?(Symbol) || str.is_a?(String)
+    return str unless [String, Symbol].include?(str.class)
 
     symbolize(str).to_s
   end
@@ -54,10 +63,11 @@ module SimpleSymbolize
   # @example Camelize a string using the camelize method
   #   camelize("hello world!") #=> :helloWorld
   def camelize(str)
-    return str unless str.is_a?(String) || str.is_a?(Symbol)
-    return symbolize(str) if str.is_a?(String) && (str.split(/[_ ]/).size <= 1)
+    return str unless [String, Symbol].include?(str.class)
 
     first, *rest = elementize(str).split('_')
-    rest ? (first << rest.map(&:capitalize).join).to_sym : symbolize(first)
+    return str if first.nil?
+
+    rest.size.positive? ? (first << rest.map(&:capitalize).join).to_sym : symbolize(first)
   end
 end
