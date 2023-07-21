@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 require 'bundler/setup'
 require 'simple_symbolize'
+require 'pry'
+
+include SimpleSymbolize
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

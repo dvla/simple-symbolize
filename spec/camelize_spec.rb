@@ -5,7 +5,7 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.camelize('This is a test')).to eq(:thisIsATest)
     expect(SimpleSymbolize.camelize('This, is a test')).to eq(:thisIsATest)
     expect(SimpleSymbolize.camelize('This_is_a_test')).to eq(:thisIsATest)
-    expect(SimpleSymbolize.camelize('thisIsATest')).to eq(:thisisatest)
+    expect(SimpleSymbolize.camelize('thisIsATest')).to eq(:thisIsATest)
     expect(SimpleSymbolize.camelize('This')).to eq(:this)
     expect(SimpleSymbolize.camelize('test')).to eq(:test)
     expect(SimpleSymbolize.camelize(:thisIsATest)).to eq(:thisIsATest)
@@ -17,6 +17,6 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.camelize(nil)).to eq(nil)
     expect(SimpleSymbolize.camelize({})).to eq({})
     expect(SimpleSymbolize.camelize([])).to eq([])
-    expect(SimpleSymbolize.camelize('')).to eq(:'')
+    expect(SimpleSymbolize.camelize('')).to eq('')
   end
 end

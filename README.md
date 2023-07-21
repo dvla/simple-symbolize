@@ -64,39 +64,58 @@ No sweat, you can configure this gem to underscore and remove to your hearts con
 
 ```ruby
 SimpleSymbolize.translate do |trans|
-  trans.to_underscore('!')
-  trans.to_remove(' ')
-  trans.to_omit('@')
+  trans.to_underscore = '!'
+  trans.to_remove = ' '
+  trans.to_omit = '@'
 end
 ```
 
 ## Updates!
 
-V1.1: SimpleSymbolize has got new friends!
+### V3
+#### String to_snake_case
+
+`#to_snake_case` extends the String class to return you your String object in snake_case format.
+
+#### Handle camelCase with Symbolize
+
+```ruby
+symbolize('helloWorld!') # => :hello_world
+```
+
+This is the default behaviour and can be switched off by setting `#handle_camel_case` to `false`
+
+```ruby
+SimpleSymbolize.translate { |trans| trans.handle_camel_case = false }
+```
+
+#### Additional ways to configure SimpleSymbolize
+
+Arrays are now supported when configuring the gem
+
+```ruby
+SimpleSymbolize.translate { |trans| trans.to_underscore = %w[!&*] }
+```
+
+### V2
+
+SimpleSymbolize has got new friends!
 
 Introducing `elementize` and `camelize`.
 
-### Elementize
+#### Elementize
 
 Sometimes you just want a simple String obj without all the fuss. Elementize takes your String obj, removes that fuss
 and returns you a simple-to-use String.
-
-#### Example
 
 ```ruby
 elementize('hello world!') # => "hello_world"
 ```
 
-### Camelize
+#### Camelize
 
 Great for working with APIs that require fields in a JSON format. Camelize clears away the clutter and returns you 
 a Symbolized object in camelCase.
-
-#### Example
-
-```ruby
-camelize('hello world!') # => :helloWorld
-```
 
 [comment]: <> (## Contributing)
 
