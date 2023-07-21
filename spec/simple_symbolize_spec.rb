@@ -17,10 +17,10 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.symbolize('This is a test')).to eq(:this_is_a_test)
   end
 
-  it 'will handle TrueClass, FalseClass and Integers' do
-    expect(SimpleSymbolize.symbolize(true)).to eq(true)
-    expect(SimpleSymbolize.symbolize(false)).to eq(false)
-    expect(SimpleSymbolize.symbolize(1)).to eq(1)
+  it 'will handle TrueClass, FalseClass, Integers and Classes/Modules' do
+    expect(SimpleSymbolize.symbolize(true)).to eq(:true)
+    expect(SimpleSymbolize.symbolize(false)).to eq(:false)
+    expect(SimpleSymbolize.symbolize(1)).to eq(:'1')
   end
 
   it 'can call #symbolize without the namespace' do
@@ -46,16 +46,41 @@ RSpec.describe SimpleSymbolize do
   end
 
   it 'has consistent behaviour between methods' do
-    expect(symbolize(true)).to eq(true)
-    expect(elementize(true)).to eq(true)
-    expect(camelize(true)).to eq(true)
+    expect(symbolize(true)).to eq(:true)
+    expect(elementize(true)).to eq('true')
+    expect(camelize(true)).to eq(:true)
 
     expect(symbolize(nil)).to eq(nil)
     expect(elementize(nil)).to eq(nil)
     expect(camelize(nil)).to eq(nil)
+
+    expect(symbolize({})).to eq({})
+    expect(elementize({})).to eq({})
+    expect(camelize({})).to eq({})
+
+    expect(symbolize([])).to eq([])
+    expect(elementize([])).to eq([])
+    expect(camelize([])).to eq([])
+  end
+
+  it 'handles Classes and Modules' do
+    expect(symbolize(SimpleSymbolize)).to eq(:simple_symbolize)
+    expect(symbolize(String)).to eq(:string)
+    expect(symbolize(SimpleSymbolize::Error)).to eq(:simple_symbolize_error)
+  end
+
+  it 'correctly handles : and ::' do
+    expect(symbolize('Hello::World')).to eq(:hello_world)
+    expect(symbolize('Hello:World')).to eq(:helloworld)
   end
 
   context 'config' do
+    it 'does not contain conflicting information by default' do
+      SimpleSymbolize.translations.remove.any? do |remove_item|
+        SimpleSymbolize.translations.underscore.include?(remove_item) || SimpleSymbolize.translations.omit.include?(remove_item)
+      end
+    end
+
     it 'accepts Arrays' do
       SimpleSymbolize.translate do |trans|
         trans.to_underscore = %w[!]
@@ -77,8 +102,8 @@ RSpec.describe SimpleSymbolize do
     end
 
     it 'has default translations' do
-      expect(SimpleSymbolize.translations.underscore).to eq([' '])
-      expect(SimpleSymbolize.translations.remove).to eq(%w[\' ( ) , . : " ! @ £ $ % ^ & *])
+      expect(SimpleSymbolize.translations.underscore).to eq([' ', '::', '-'])
+      expect(SimpleSymbolize.translations.remove).to eq(%w[' ( ) , . : " ! @ £ $ % ^ & * / { } [ ] < > ; = #])
       expect(SimpleSymbolize.translations.omit).to eq(%w[])
     end
 

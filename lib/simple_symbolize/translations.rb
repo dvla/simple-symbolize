@@ -69,8 +69,8 @@ module SimpleSymbolize
     end
 
     def reset!
-      @underscore = [' ']
-      @remove = %w[\' ( ) , . : " ! @ £ $ % ^ & *]
+      @underscore = [' ', '::', '-']
+      @remove = %w[' ( ) , . : " ! @ £ $ % ^ & * / { } [ ] < > ; = #]
       @omit = []
       @handle_camel_case = true
     end
