@@ -23,7 +23,7 @@ module SimpleSymbolize
   #
   # @yieldparam [Translations] config the translations object yielded to the block.
   def self.translate
-    yield translations
+    yield(translations) if block_given?
   end
 
   # Symbolizes a String object.
