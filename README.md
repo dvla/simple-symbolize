@@ -17,7 +17,7 @@ It works by removing special characters in a String like `'!'` and underscoring 
 'hello world!'.to_sym # => :"hello world!"
 
 # Symbolize gem
-'hello world!'.symbolize # => :hello_world
+'hello world!'.simple_symbolize # => :hello_world
 ```
 
 ## Installation
@@ -53,7 +53,9 @@ SimpleSymbolize.symbolize('hello world!') # => :hello_world
 ```ruby
 require 'simple_symbolize'
 
-'hello world!'.symbolize # => :hello_world
+String.include SimpleSymbolize::CoreExt::String
+
+'hello world!'.simple_symbolize # => :hello_world
 ```
 
 ## Configuration
@@ -72,15 +74,41 @@ end
 
 ## Updates!
 
+### V4
+#### String methods now need to be Mixed in
+
+SimpleSymbolize is safe to use with other gems, particularly the popular ActiveSupport gem which SimpleSymbolize use to share 
+certain methods names with.
+
+You now need to deliberatly mixin the methods on the String class:
+
+```ruby
+String.include SimpleSymbolize::CoreExt::String
+```
+
+To make them easier to spot, the method names on the String class have been prefixed with `simple_` to avoid confusion.
+
+```ruby
+'Hello World!'.simple_symbolize #=> :hello_world
+'Hello World!'.simple_elementize #=> 'hello_world'
+'Hello World!'.simple_camelize #=> :helloWorld
+'Hello World!'.simple_snakeize #=> :hello_world
+```
+
+#### Introducing #snakeize
+
+The `#snakeize` method will return your object in snake_case.
+This is the default behaviour of the `#symbolize` method however `#snakeize` will always return thr Symbol in snake_case.
+
 ### V3
-#### String to_snake_case
+#### String to_snake_case [DEPRECATED - replaced with `#simple_snakeize` in v4]
 
 `#to_snake_case` extends the String class to return you your String object in snake_case format.
 
 #### Handle camelCase with Symbolize
 
 ```ruby
-symbolize('helloWorld!') # => :hello_world
+SimpleSymbolize.symbolize('helloWorld!') # => :hello_world
 ```
 
 This is the default behaviour and can be switched off by setting `#handle_camel_case` to `false`
@@ -109,7 +137,7 @@ Sometimes you just want a simple String obj without all the fuss. Elementize tak
 and returns you a simple-to-use String.
 
 ```ruby
-elementize('hello world!') # => "hello_world"
+SimpleSymbolize.elementize('hello world!') # => "hello_world"
 ```
 
 #### Camelize

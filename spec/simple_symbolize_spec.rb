@@ -10,7 +10,7 @@ RSpec.describe SimpleSymbolize do
   end
 
   it 'extends String class' do
-    expect('This is a test'.symbolize).to eq(:this_is_a_test)
+    expect('This is a test'.simple_symbolize).to eq(:this_is_a_test)
   end
 
   it 'has a symbolize method' do
@@ -23,16 +23,16 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.symbolize(1)).to eq(:'1')
   end
 
-  it 'can call #symbolize without the namespace' do
-    expect(symbolize('Hello World!')).to eq(:hello_world)
+  it 'can cannot #symbolize without the namespace' do
+    expect { symbolize('Hello World!') }.to raise_error(NoMethodError)
   end
 
   it 'can omit characters from transformation' do
     SimpleSymbolize.translate { |trans| trans.to_remove = '!' }
-    expect('Hello World!'.symbolize).to eq(:hello_world)
+    expect('Hello World!'.simple_symbolize).to eq(:hello_world)
 
     SimpleSymbolize.translate { |trans| trans.to_omit = '!' }
-    expect('Hello World!'.symbolize).to eq(:hello_world!)
+    expect('Hello World!'.simple_symbolize).to eq(:hello_world!)
   end
 
   it 'can handle camelCaseStrings by default' do
@@ -46,32 +46,41 @@ RSpec.describe SimpleSymbolize do
   end
 
   it 'has consistent behaviour between methods' do
-    expect(symbolize(true)).to eq(:true)
-    expect(elementize(true)).to eq('true')
-    expect(camelize(true)).to eq(:true)
+    expect(SimpleSymbolize.symbolize(true)).to eq(:true)
+    expect(SimpleSymbolize.elementize(true)).to eq('true')
+    expect(SimpleSymbolize.camelize(true)).to eq(:true)
+    expect(SimpleSymbolize.snakeize(true)).to eq(:true)
 
-    expect(symbolize(nil)).to eq(nil)
-    expect(elementize(nil)).to eq(nil)
-    expect(camelize(nil)).to eq(nil)
+    expect(SimpleSymbolize.symbolize(nil)).to eq(nil)
+    expect(SimpleSymbolize.elementize(nil)).to eq(nil)
+    expect(SimpleSymbolize.camelize(nil)).to eq(nil)
+    expect(SimpleSymbolize.snakeize(nil)).to eq(nil)
 
-    expect(symbolize({})).to eq({})
-    expect(elementize({})).to eq({})
-    expect(camelize({})).to eq({})
+    expect(SimpleSymbolize.symbolize({})).to eq({})
+    expect(SimpleSymbolize.elementize({})).to eq({})
+    expect(SimpleSymbolize.camelize({})).to eq({})
+    expect(SimpleSymbolize.snakeize({})).to eq({})
 
-    expect(symbolize([])).to eq([])
-    expect(elementize([])).to eq([])
-    expect(camelize([])).to eq([])
+    expect(SimpleSymbolize.symbolize([])).to eq([])
+    expect(SimpleSymbolize.elementize([])).to eq([])
+    expect(SimpleSymbolize.camelize([])).to eq([])
+    expect(SimpleSymbolize.snakeize([])).to eq([])
+
+    expect(SimpleSymbolize.symbolize('')).to eq('')
+    expect(SimpleSymbolize.elementize('')).to eq('')
+    expect(SimpleSymbolize.camelize('')).to eq('')
+    expect(SimpleSymbolize.snakeize('')).to eq('')
   end
 
   it 'handles Classes and Modules' do
-    expect(symbolize(SimpleSymbolize)).to eq(:simple_symbolize)
-    expect(symbolize(String)).to eq(:string)
-    expect(symbolize(SimpleSymbolize::Error)).to eq(:simple_symbolize_error)
+    expect(SimpleSymbolize.symbolize(SimpleSymbolize)).to eq(:simple_symbolize)
+    expect(SimpleSymbolize.symbolize(String)).to eq(:string)
+    expect(SimpleSymbolize.symbolize(SimpleSymbolize::Error)).to eq(:simple_symbolize_error)
   end
 
   it 'correctly handles : and ::' do
-    expect(symbolize('Hello::World')).to eq(:hello_world)
-    expect(symbolize('Hello:World')).to eq(:helloworld)
+    expect(SimpleSymbolize.symbolize('Hello::World')).to eq(:hello_world)
+    expect(SimpleSymbolize.symbolize('Hello:World')).to eq(:hello_world)
   end
 
   context 'config' do
@@ -118,7 +127,7 @@ RSpec.describe SimpleSymbolize do
         trans.to_underscore = '!'
         trans.to_remove = '&'
       end
-      expect(SimpleSymbolize.symbolize('Hello&World!')).to eq(:helloworld_)
+      expect(SimpleSymbolize.symbolize('Hello&World!')).to eq(:hello_world_)
     end
 
     it 'can handle duplicates' do

@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
-require 'bundler/setup'
+require 'simplecov'
+SimpleCov.minimum_coverage 90
+SimpleCov.start
+
 require 'simple_symbolize'
 require 'pry'
 
-include SimpleSymbolize
+String.include SimpleSymbolize::CoreExt::String
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
