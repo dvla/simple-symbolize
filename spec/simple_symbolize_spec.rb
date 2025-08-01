@@ -13,6 +13,10 @@ RSpec.describe SimpleSymbolize do
     expect('This is a test'.simple_symbolize).to eq(:this_is_a_test)
   end
 
+  it 'extends Symbol class' do
+    expect(:This_is_a_test.simple_symbolize).to eq(:this_is_a_test)
+  end
+
   it 'has a symbolize method' do
     expect(SimpleSymbolize.symbolize('This is a test')).to eq(:this_is_a_test)
   end

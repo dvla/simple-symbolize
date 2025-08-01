@@ -4,6 +4,7 @@ require 'simple_symbolize/version'
 
 require_relative 'simple_symbolize/translations'
 require_relative 'simple_symbolize/core_ext/string/symbolize'
+require_relative 'simple_symbolize/core_ext/symbol/symbolize'
 
 # Main module for the gem
 # Contains the base methods and allows configuration

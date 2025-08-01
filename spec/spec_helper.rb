@@ -5,9 +5,9 @@ SimpleCov.minimum_coverage 90
 SimpleCov.start
 
 require 'simple_symbolize'
-require 'pry'
 
 String.include SimpleSymbolize::CoreExt::String
+Symbol.include SimpleSymbolize::CoreExt::Symbol
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
