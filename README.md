@@ -58,6 +58,16 @@ String.include SimpleSymbolize::CoreExt::String
 'hello world!'.simple_symbolize # => :hello_world
 ```
 
+### Call the symbolize method on your Symbol object
+
+```ruby
+require 'simple_symbolize'
+
+Symbol.include SimpleSymbolize::CoreExt::Symbol
+
+:hello_world!.simple_symbolize # => :hello_world
+```
+
 ## Configuration
 
 Something not underscored or removed? Or even something underscored/removed that you didn't want transformed? 
@@ -74,13 +84,23 @@ end
 
 ## Updates!
 
+### V4.1
+### Symbol methods can now be Mixed in
+
+SimpleSymbolize now supports mixing in the methods on the Symbol class, allowing you to call `simple_symbolize` directly on a Symbol object.
+
+```ruby
+Symbol.include SimpleSymbolize::CoreExt::Symbol
+:hello_world!.simple_symbolize # => :hello_world
+```
+
 ### V4
 #### String methods now need to be Mixed in
 
 SimpleSymbolize is safe to use with other gems, particularly the popular ActiveSupport gem which SimpleSymbolize use to share 
 certain methods names with.
 
-You now need to deliberatly mixin the methods on the String class:
+You now need to deliberately mixin the methods on the String class:
 
 ```ruby
 String.include SimpleSymbolize::CoreExt::String
