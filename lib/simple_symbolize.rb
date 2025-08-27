@@ -32,9 +32,7 @@ module SimpleSymbolize
   # @example Symbolize a string using the symbolize method
   #   SimpleSymbolize.symbolize("hello world!") #=> :hello_world
   def self.symbolize(obj)
-    return obj unless obj.respond_to?(:to_s)
-    return obj if [Hash, Array, NilClass].include?(obj.class)
-    return obj if obj.respond_to?(:empty?) && obj.empty?
+    return obj unless valid_input?(obj)
 
     obj = if SimpleSymbolize.translations.handle_camel_case
             snakeize(obj)
@@ -54,9 +52,7 @@ module SimpleSymbolize
   # @example Elementize a string using the elementize method
   #   SimpleSymbolize.elementize("hello world!") #=> "helloWorld"
   def self.elementize(obj)
-    return obj unless obj.respond_to?(:to_s)
-    return obj if [Hash, Array, NilClass].include?(obj.class)
-    return obj if obj.respond_to?(:empty?) && obj.empty?
+    return obj unless valid_input?(obj)
 
     symbolize(obj).to_s
   end
@@ -68,14 +64,12 @@ module SimpleSymbolize
   # @example Camelize a string using the camelize method
   #   SimpleSymbolize.camelize("hello world!") #=> :helloWorld
   def self.camelize(obj)
-    return obj unless obj.respond_to?(:to_s)
-    return obj if [Hash, Array, NilClass].include?(obj.class)
-    return obj if obj.respond_to?(:empty?) && obj.empty?
+    return obj unless valid_input?(obj)
 
     first, *rest = elementize(obj).split('_')
     return obj if first.nil?
 
-    rest.size.positive? ? (first << rest.map(&:capitalize).join).to_sym : symbolize(first)
+    assemble_came_case_string(first, rest)
   end
 
   # Turns a String || Symbol into a snake_case Symbol
@@ -85,9 +79,7 @@ module SimpleSymbolize
   # @example Snakeize an object using the snakeize method
   #   SimpleSymbolize.snakeize('Hello World!') #=> :hello_world
   def self.snakeize(obj)
-    return obj unless obj.respond_to?(:to_s)
-    return obj if [Hash, Array, NilClass].include?(obj.class)
-    return obj if obj.respond_to?(:empty?) && obj.empty?
+    return obj unless valid_input?(obj)
 
     obj.to_s
        .gsub(Regexp.union(SimpleSymbolize.translations.underscore), '_')
@@ -96,5 +88,42 @@ module SimpleSymbolize
        .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
        .downcase
        .to_sym
+  end
+
+  class << self
+    private
+
+    # Validates if the input object should be processed
+    #
+    # @param obj [Object] the object to validate
+    #
+    # @return [Boolean] true if the object should be processed, false otherwise
+    def valid_input?(obj)
+      return false unless [String, Symbol].include?(obj.class)
+      return false unless obj.respond_to?(:to_s)
+      return false if obj.to_s.empty?
+
+      true
+    end
+
+    # Abstracts the complicated building of the camelCase String
+    #
+    # @param first [String] the first part of the camelCase String
+    # @param rest [Array] the rest of the camelCase String
+    #
+    # @return [Symbol] camelCase representation of the input
+    def assemble_came_case_string(first, rest)
+      return symbolize(first) unless rest.size.positive?
+
+      acronyms = SimpleSymbolize.translations.camel_case_acronyms
+      rest = if acronyms.empty?
+               rest.map(&:capitalize)
+             else
+               rest.map { |word| acronyms.include?(word) ? word.upcase : word.capitalize }
+             end
+
+      word = first + rest.join
+      word.to_sym
+    end
   end
 end

@@ -19,4 +19,11 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.camelize([])).to eq([])
     expect(SimpleSymbolize.camelize('')).to eq('')
   end
+
+  it 'handles camel case acronyms' do
+    expect(SimpleSymbolize.camelize('from gb')).to eq(:fromGb)
+
+    SimpleSymbolize.translations.camel_case_acronyms = ['gb']
+    expect(SimpleSymbolize.camelize('from gb')).to eq(:fromGB)
+  end
 end
