@@ -69,19 +69,7 @@ module SimpleSymbolize
     first, *rest = elementize(obj).split('_')
     return obj if first.nil?
 
-    if rest.size.positive?
-      acronyms = SimpleSymbolize.translations.camel_case_acronyms
-      rest = if acronyms.empty?
-               rest.map(&:capitalize)
-             else
-               rest.map { |word| acronyms.include?(word) ? word.upcase : word.capitalize }
-             end
-
-      word = first + rest.join
-      word.to_sym
-    else
-      symbolize(first)
-    end
+    assemble_came_case_string(first, rest)
   end
 
   # Turns a String || Symbol into a snake_case Symbol
@@ -102,17 +90,40 @@ module SimpleSymbolize
        .to_sym
   end
 
-  # Validates if the input object should be processed
-  #
-  # @param obj [Object] the object to validate
-  # @return [Boolean] true if the object should be processed, false otherwise
-  def self.valid_input?(obj)
-    return false unless [String, Symbol].include?(obj.class)
-    return false unless obj.respond_to?(:to_s)
-    return false if obj.to_s.empty?
+  class << self
+    private
 
-    true
+    # Validates if the input object should be processed
+    #
+    # @param obj [Object] the object to validate
+    #
+    # @return [Boolean] true if the object should be processed, false otherwise
+    def valid_input?(obj)
+      return false unless [String, Symbol].include?(obj.class)
+      return false unless obj.respond_to?(:to_s)
+      return false if obj.to_s.empty?
+
+      true
+    end
+
+    # Abstracts the complicated building of the camelCase String
+    #
+    # @param first [String] the first part of the camelCase String
+    # @param rest [Array] the rest of the camelCase String
+    #
+    # @return [Symbol] camelCase representation of the input
+    def assemble_came_case_string(first, rest)
+      return symbolize(first) unless rest.size.positive?
+
+      acronyms = SimpleSymbolize.translations.camel_case_acronyms
+      rest = if acronyms.empty?
+               rest.map(&:capitalize)
+             else
+               rest.map { |word| acronyms.include?(word) ? word.upcase : word.capitalize }
+             end
+
+      word = first + rest.join
+      word.to_sym
+    end
   end
-
-  private_class_method :valid_input?
 end

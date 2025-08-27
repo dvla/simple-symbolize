@@ -1,11 +1,11 @@
 # SimpleSymbolize
 
-SimpleSymbolize takes a string and transforms it into a symbol. Why? Because working with symbols in Ruby makes for a 
+SimpleSymbolize takes a string and transforms it into a symbol. Why? Because working with symbols in Ruby makes for a
 good time.
 
 Wait, doesn't String already have a `to_sym` method?
 
-Correct! However, this gem takes it one step further by transforming special characters and whitespace to give you a 
+Correct! However, this gem takes it one step further by transforming special characters and whitespace to give you a
 simple easy to work with Symbol.
 
 It works by removing special characters in a String like `'!'` and underscoring any whitespace.
@@ -38,9 +38,9 @@ Or install it yourself as:
 
 ## Usage
 
-There are two ways to symbolize your String.
+There are three ways to use this gem.
 
-### Call the symbolize method and pass it your String
+### SimpleSymbolize
 
 ```ruby
 require 'simple_symbolize'
@@ -48,7 +48,16 @@ require 'simple_symbolize'
 SimpleSymbolize.symbolize('hello world!') # => :hello_world
 ```
 
-### Call the symbolize method on your String object
+Available methods:
+
+| Method     | What does it do?                                                                                                                         |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| symbolize  | Returns your object as a plain old symbol                                                                                                |
+| elementize | Returns your object as a plain old String                                                                                                |
+| camelize   | Returns your object as a plain old camelCase symbol                                                                                      |
+| snakeize   | Returns your object as a plain old snake_case symbol (very similar to symbolize, only it does not respect the handle_camel_case setting) |                                                                                                        |
+
+### Mixing into String
 
 ```ruby
 require 'simple_symbolize'
@@ -58,7 +67,16 @@ String.include SimpleSymbolize::CoreExt::String
 'hello world!'.simple_symbolize # => :hello_world
 ```
 
-### Call the symbolize method on your Symbol object
+Available methods:
+
+| Method     | What does it do?                                                                                                                         |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| simple_symbolize  | Returns your object as a plain old symbol                                                                                                |
+| simple_elementize | Returns your object as a plain old String                                                                                                |
+| simple_camelize   | Returns your object as a plain old camelCase symbol                                                                                      |
+| simple_snakeize   | Returns your object as a plain old snake_case symbol (very similar to symbolize, only it does not respect the handle_camel_case setting) |                                                                                                        |
+
+### Mixing into Symbol
 
 ```ruby
 require 'simple_symbolize'
@@ -68,9 +86,18 @@ Symbol.include SimpleSymbolize::CoreExt::Symbol
 :hello_world!.simple_symbolize # => :hello_world
 ```
 
+Available methods:
+
+| Method     | What does it do?                                                                                                                         |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| simple_symbolize  | Returns your object as a plain old symbol                                                                                                |
+| simple_elementize | Returns your object as a plain old String                                                                                                |
+| simple_camelize   | Returns your object as a plain old camelCase symbol                                                                                      |
+| simple_snakeize   | Returns your object as a plain old snake_case symbol (very similar to symbolize, only it does not respect the handle_camel_case setting) |                                                                                                        |
+
 ## Configuration
 
-Something not underscored or removed? Or even something underscored/removed that you didn't want transformed? 
+Something not underscored or removed? Or even something underscored/removed that you didn't want transformed?
 
 No sweat, you can configure this gem to underscore and remove to your hearts content!
 
@@ -84,20 +111,51 @@ end
 
 ## Updates!
 
-### V4.1
-### Symbol methods can now be Mixed in
+### V5
 
-SimpleSymbolize now supports mixing in the methods on the Symbol class, allowing you to call `simple_symbolize` directly on a Symbol object.
+#### Dropped support for Ruby < 3.2
+
+Ruby 3.1 reached EOL in 2024, as such this gem no longer supports versions older than 3.2.
+
+#### Only deals with Strings and Symbols
+
+In previous iterations, certain non String/Symbol objects would be handled `SimpleSymbolize.symbolze(true)` returned
+`:true`.
+
+To be consistent, SimpleSymbolize now only accepts String/Symbols, everything else will be returned.
+
+#### Uppercase acronyms when camelizing
+
+Sometimes you want certain phrases to be in uppercase when camelizing, SimpleSymbolize now supports this.
+
+```ruby
+SimpleSymbolize.translate { |t| t.camel_case_acronym = ['gb'] }
+
+SimpleSymbolize.camelize('from gb') # => :fromGB (without setting the camel_case_acronym this would return :fromGb)
+```
+
+---
+
+### V4.1
+
+#### Symbol methods can now be Mixed in
+
+SimpleSymbolize now supports mixing in the methods on the Symbol class, allowing you to call `simple_symbolize` directly
+on a Symbol object.
 
 ```ruby
 Symbol.include SimpleSymbolize::CoreExt::Symbol
 :hello_world!.simple_symbolize # => :hello_world
 ```
 
+---
+
 ### V4
+
 #### String methods now need to be Mixed in
 
-SimpleSymbolize is safe to use with other gems, particularly the popular ActiveSupport gem which SimpleSymbolize use to share 
+SimpleSymbolize is safe to use with other gems, particularly the popular ActiveSupport gem which SimpleSymbolize use to
+share
 certain methods names with.
 
 You now need to deliberately mixin the methods on the String class:
@@ -118,9 +176,13 @@ To make them easier to spot, the method names on the String class have been pref
 #### Introducing #snakeize
 
 The `#snakeize` method will return your object in snake_case.
-This is the default behaviour of the `#symbolize` method however `#snakeize` will always return thr Symbol in snake_case.
+This is the default behaviour of the `#symbolize` method however `#snakeize` will always return thr Symbol in
+snake_case.
+
+---
 
 ### V3
+
 #### String to_snake_case [DEPRECATED - replaced with `#simple_snakeize` in v4]
 
 `#to_snake_case` extends the String class to return you your String object in snake_case format.
@@ -145,6 +207,8 @@ Arrays are now supported when configuring the gem
 SimpleSymbolize.translate { |trans| trans.to_underscore = %w[!&*] }
 ```
 
+---
+
 ### V2
 
 SimpleSymbolize has got new friends!
@@ -162,7 +226,7 @@ SimpleSymbolize.elementize('hello world!') # => "hello_world"
 
 #### Camelize
 
-Great for working with APIs that require fields in a JSON format. Camelize clears away the clutter and returns you 
+Great for working with APIs that require fields in a JSON format. Camelize clears away the clutter and returns you
 a Symbolized object in camelCase.
 
 [comment]: <> (## Contributing)
