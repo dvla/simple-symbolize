@@ -7,5 +7,5 @@ gemspec
 
 gem 'rake', '~> 13.3'
 gem 'rspec', '~> 3.13'
-gem 'rubocop', '~> 1.79'
+gem 'rubocop', '~> 1.80'
 gem 'simplecov', '~> 0.22'

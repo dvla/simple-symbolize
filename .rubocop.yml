@@ -1,7 +1,7 @@
 AllCops:
   NewCops: enable
   SuggestExtensions: false
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 3.2
 
 Gemspec/DevelopmentDependencies:
   EnforcedStyle: gemspec
@@ -16,18 +16,3 @@ Metrics/BlockLength:
 
 Style/MixinUsage:
   Enabled: false
-
-Lint/BooleanSymbol:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/MethodLength:
-  Max: 25
-
-Layout/LineLength:
-  Max: 130
-
-Metrics/CyclomaticComplexity:
-  Max: 8
