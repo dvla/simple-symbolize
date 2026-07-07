@@ -14,4 +14,22 @@ RSpec.describe SimpleSymbolize do
     expect(SimpleSymbolize.elementize([])).to eq([])
     expect(SimpleSymbolize.elementize('')).to eq('')
   end
+
+  context 'strip_chars option' do
+    it 'strips chars by default' do
+      expect(SimpleSymbolize.elementize('Hello World!')).to eq('hello_world')
+    end
+
+    it 'does not strip chars when strip_chars is false' do
+      expect(SimpleSymbolize.elementize('Hello World!', strip_chars: false)).to eq('hello_world!')
+    end
+
+    it 'continues to strip chars when strip_chars is true' do
+      expect(SimpleSymbolize.elementize('Hello World!', strip_chars: true)).to eq('hello_world')
+    end
+
+    it 'does not strip chars when strip_chars is not a boolean' do
+      expect(SimpleSymbolize.elementize('Hello World!', strip_chars: 'not_a_boolean')).to eq('hello_world!')
+    end
+  end
 end

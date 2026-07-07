@@ -111,6 +111,22 @@ end
 
 ## Updates!
 
+### V6.0.0
+
+#### Dropped support for Ruby < 3.4
+
+Ruby 3.2 reached EOL in 2026, and Ruby 3.3 will reach EOL in 2027.
+As such this gem no longer supports versions older than 3.4.
+
+#### Inline configuration
+
+You can now prevent chars being removed inline:
+
+```ruby
+SimpleSymbolize.symbolize('Hello World!', strip_chars: false)
+# => :hello_world!
+```
+
 ### V5
 
 #### Dropped support for Ruby < 3.2

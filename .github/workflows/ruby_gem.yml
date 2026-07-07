@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: [ '3.2', '3.3', '3.4' ]
+        ruby-version: [ '3.4', '4.0' ]
 
     steps:
       - uses: actions/checkout@v4
@@ -32,10 +32,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Ruby 3.4
+      - name: Set up Ruby 4.0
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4
+          ruby-version: 4.0
           bundler-cache: true
 
       - name: Publish to RubyGems
