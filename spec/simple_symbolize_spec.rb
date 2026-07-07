@@ -196,4 +196,22 @@ RSpec.describe SimpleSymbolize do
       expect(SimpleSymbolize.translations.underscore).not_to include('^')
     end
   end
+
+  context 'strip_chars option' do
+    it 'strips chars by default' do
+      expect(SimpleSymbolize.symbolize('Hello World!')).to eq(:hello_world)
+    end
+
+    it 'does not strip chars when strip_chars is false' do
+      expect(SimpleSymbolize.symbolize('Hello World!', strip_chars: false)).to eq(:hello_world!)
+    end
+
+    it 'continues to strip chars when strip_chars is true' do
+      expect(SimpleSymbolize.symbolize('Hello World!', strip_chars: true)).to eq(:hello_world)
+    end
+
+    it 'does not strip chars when strip_chars is not a boolean' do
+      expect(SimpleSymbolize.symbolize('Hello World!', strip_chars: 'not_a_boolean')).to eq(:hello_world!)
+    end
+  end
 end

@@ -31,17 +31,20 @@ module SimpleSymbolize
   #
   # @example Symbolize a string using the symbolize method
   #   SimpleSymbolize.symbolize("hello world!") #=> :hello_world
-  def self.symbolize(obj)
+  def self.symbolize(obj, strip_chars: true)
     return obj unless valid_input?(obj)
 
     obj = if SimpleSymbolize.translations.handle_camel_case
-            snakeize(obj)
+            snakeize(obj, strip_chars:)
           else
             obj.to_s
                .downcase
                .gsub(Regexp.union(SimpleSymbolize.translations.underscore), '_')
-               .gsub(Regexp.union(SimpleSymbolize.translations.remove), '')
+               .then do |str|
+                 strip_chars?(strip_chars) ? str.gsub(Regexp.union(SimpleSymbolize.translations.remove), '') : str
+               end
           end
+
     obj.to_sym
   end
 
@@ -51,10 +54,10 @@ module SimpleSymbolize
   #
   # @example Elementize a string using the elementize method
   #   SimpleSymbolize.elementize("hello world!") #=> "helloWorld"
-  def self.elementize(obj)
+  def self.elementize(obj, strip_chars: true)
     return obj unless valid_input?(obj)
 
-    symbolize(obj).to_s
+    symbolize(obj, strip_chars:).to_s
   end
 
   # Turns a String object into a camelCase Symbol.
@@ -63,10 +66,10 @@ module SimpleSymbolize
   #
   # @example Camelize a string using the camelize method
   #   SimpleSymbolize.camelize("hello world!") #=> :helloWorld
-  def self.camelize(obj)
+  def self.camelize(obj, strip_chars: true)
     return obj unless valid_input?(obj)
 
-    first, *rest = elementize(obj).split('_')
+    first, *rest = elementize(obj, strip_chars:).split('_')
     return obj if first.nil?
 
     assemble_came_case_string(first, rest)
@@ -78,12 +81,12 @@ module SimpleSymbolize
   #
   # @example Snakeize an object using the snakeize method
   #   SimpleSymbolize.snakeize('Hello World!') #=> :hello_world
-  def self.snakeize(obj)
+  def self.snakeize(obj, strip_chars: true)
     return obj unless valid_input?(obj)
 
     obj.to_s
        .gsub(Regexp.union(SimpleSymbolize.translations.underscore), '_')
-       .gsub(Regexp.union(SimpleSymbolize.translations.remove), '')
+       .then { |str| strip_chars?(strip_chars) ? str.gsub(Regexp.union(SimpleSymbolize.translations.remove), '') : str }
        .gsub(/([a-z\d])([A-Z])/, '\1_\2')
        .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
        .downcase
@@ -124,6 +127,10 @@ module SimpleSymbolize
 
       word = first + rest.join
       word.to_sym
+    end
+
+    def strip_chars?(obj)
+      obj.to_s.downcase == 'true'
     end
   end
 end

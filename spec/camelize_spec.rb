@@ -26,4 +26,22 @@ RSpec.describe SimpleSymbolize do
     SimpleSymbolize.translations.camel_case_acronyms = ['gb']
     expect(SimpleSymbolize.camelize('from gb')).to eq(:fromGB)
   end
+
+  context 'strip_chars option' do
+    it 'strips chars by default' do
+      expect(SimpleSymbolize.camelize('Hello World!')).to eq(:helloWorld)
+    end
+
+    it 'does not strip chars when strip_chars is false' do
+      expect(SimpleSymbolize.camelize('Hello World!', strip_chars: false)).to eq(:helloWorld!)
+    end
+
+    it 'continues to strip chars when strip_chars is true' do
+      expect(SimpleSymbolize.camelize('Hello World!', strip_chars: true)).to eq(:helloWorld)
+    end
+
+    it 'does not strip chars when strip_chars is not a boolean' do
+      expect(SimpleSymbolize.camelize('Hello World!', strip_chars: 'not_a_boolean')).to eq(:helloWorld!)
+    end
+  end
 end
